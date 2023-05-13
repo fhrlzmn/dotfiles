@@ -1,0 +1,32 @@
+[global]
+  frame_color = "#89B4FAE6"
+  separator_color = frame
+
+  width = (150,300)
+  height = 200
+
+  notification_limit = 5
+  font = Product Sans 10
+
+  format = "<b>%a</b>\n%b"
+  icon_position = off
+
+  origin = bottom-center
+  offset = 6x100
+
+  gap_size = 3
+
+  alignment = center
+
+[urgency_low]
+  background = "#1E1E2EE6"
+  foreground = "#CDD6F4E6"
+
+[urgency_normal]
+  background = "#1E1E2EE6"
+  foreground = "#CDD6F4E6"
+
+[urgency_critical]
+  background = "#1E1E2EE6"
+  foreground = "#CDD6F4E6"
+  frame_color = "#FAB387E6"
