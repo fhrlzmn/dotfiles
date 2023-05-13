@@ -1,0 +1,230 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 30, // Waybar height (to be removed for auto height)
+    "spacing": 9, // Gaps between modules (4px)
+    "margin": "3 3 0 3",
+
+    // Choose the order of the modules
+    "modules-left": [
+      // "wlr/workspaces",
+      // "custom/media",
+      "wlr/workspaces",
+      "temperature",
+      // "cpu",
+      "memory",
+      "tray"
+
+      // "hyprland/window",
+    ],
+
+    "modules-center": [
+      "cava",
+      "custom/spotify"
+    ],
+
+    "modules-right": [
+      "network", 
+      "backlight", 
+      "pulseaudio", 
+      // "memory", 
+      "battery",
+      "clock"
+      // "cpu", 
+      // "temperature", 
+    ],
+
+    // Modules configuration
+    "wlr/workspaces": {
+      "disable-scroll": true,
+      "format": " {icon} ",
+      "format-icons": {
+        "urgent": "",
+        "active": "󱠇",
+        "default": "󰝦"
+      },
+    },
+
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+    "hyprland/window": {
+      "format": "{}"
+    },
+    
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 2,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+
+    "tray": {
+        "icon-size": 12,
+        "spacing": 10
+    },
+
+    "clock": {
+        // "timezone": "America/New_York",
+        "format": "{:%H:%M}",
+        "format-alt": "{:%Y-%m-%d}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    },
+    "cpu": {
+        "format": "{usage}% 󰘚 ",
+        "tooltip": false
+    },
+    "memory": {
+        "interval": 30,
+        "format": "{percentage}% 󰍛 ",
+        "tooltip-format": "used {used} of {total} GB"
+    },
+
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon} ",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", "", "", ""],
+    },
+
+    "backlight": {
+        // "device": "intel_backlight",
+        "interval": 1,
+        // "format": "{percent}% {icon} ",
+        "format": "{icon} ",
+        "format-icons":["󰃞", "󰃟", "󰃠"],
+        "tooltip-format": "{percent}%",
+        "on-scroll-up": "exec light -A 1",
+        "on-scroll-down": "exec light -U 1"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        // "format": "{capacity}% {icon} ",
+        "format": "{icon} ",
+        "format-charging": "{capacity}% 󱐋",
+        "format-plugged": "{capacity}% 󱐋",
+        "format-alt": "{capacity}% {icon} ",
+        "format-icons": ["", "", "", "", ""],
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        // "format-wifi": "{essid} 󰖩 ",
+        "interval": 1,
+        "format-wifi": "{bandwidthTotalBytes}    󰖩 ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        // "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        // "format": "{volume}% {icon}",
+        "format": "{icon} ",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% 󰍬",
+        "format-source-muted": "󰍭",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/scripts/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+
+    "custom/spotify": {
+        "format": "󰓇   {}",
+        "exec": "~/.config/waybar/scripts/spotify.sh",
+        "return-type": "json",
+        "on-click": "playerctl -p spotify play-pause",
+        "on-scroll-up": "playerctl -p spotify next",
+        "on-scroll-down": "playerctl -p spotify previous",
+        "exec-if": "pgrep spotfiy"
+    },
+
+    "cava": {
+        "cava_config": "~/.config/cava/config",
+        "framerate": 60,
+        "autosens": 1,
+        "sensitivity": 100,
+        "bars": 14,
+        "lower_cutoff_freq": 50,
+        "higher_cutoff_freq": 10000,
+        "method": "pulse",
+        "source": "auto",
+        "stereo": true,
+        "reverse": false,
+        "bar_delimiter": 0,
+        "monstercat": false,
+        "waves": false,
+        "noise_reduction": 0.77,
+        "input_delay": 2,
+        "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+        "actions": {
+                   "on-click-right": "mode"
+                   }
+    },
+}
+
